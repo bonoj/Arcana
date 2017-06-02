@@ -1,3 +1,3 @@
 # Arcana
 
-A 2D playspace for projectiles with weird and wonderful behavior.
+A multi-platform 2D sandbox for projectiles with weird and wonderful behavior.
