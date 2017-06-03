@@ -26,7 +26,7 @@ public class ArcanaGame extends ApplicationAdapter {
 
 		object.updatePosition();
 		object.draw();
-		// batch.draw(img, 0, 0);
+		GameInput.update();
 		batch.end();
 	}
 
