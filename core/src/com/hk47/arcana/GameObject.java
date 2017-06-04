@@ -21,8 +21,8 @@ public class GameObject {
     public void updatePosition() {
         int speed = 5;
 
-        x += GameInput.keyForce.x * speed * Time.time;
-        y += GameInput.keyForce.y * speed * Time.time;
+        x += GameInput.keyForce.x * speed / Time.time;
+        y += GameInput.keyForce.y * speed / Time.time;
 
         Gdx.app.log("Position: ", "(" + x + "," + y + ")");
     }

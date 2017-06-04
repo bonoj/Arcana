@@ -36,13 +36,13 @@ public class Player extends Sprite {
             //momentum = Math.min(gravity * frames, momentum + gravity);
             momentumVector.y -= gravity;
         }
-        
+
         momentumVector.x = GameInput.keyForce.x * speed;
 
 //        this.translateX(gravityVector.x * momentum);
 //        this.translateY(gravityVector.y * momentum);
-        this.translateX(momentumVector.x);
-        this.translateY(momentumVector.y);
+        this.translateX(momentumVector.x / (float) Time.time);
+        this.translateY(momentumVector.y / (float) Time.time);
         this.setY(Math.max(this.getY(), 64));
     }
 
