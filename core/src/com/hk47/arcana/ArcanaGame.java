@@ -44,7 +44,7 @@ public class ArcanaGame extends ApplicationAdapter {
 		object = new GameObject("purporb.png", batch, width / 2, height / 2);
 
 		Texture playerTexture = new Texture("purporb.png");
-		player = new Player(playerTexture, 200, 200);
+		player = new Player(playerTexture, 300, 400);
 
 		MapProperties properties = tiledMap.getProperties();
 		// Get level width and height in tiles
