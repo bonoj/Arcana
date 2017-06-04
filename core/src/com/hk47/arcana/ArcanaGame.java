@@ -28,6 +28,10 @@ public class ArcanaGame extends ApplicationAdapter {
 
 	@Override
 	public void create () {
+
+		// Sound test
+		SoundManager.playMusic("Winds Of Stories.ogg", 0.2f);
+
 		batch = new SpriteBatch();
 
 		width = Gdx.graphics.getWidth();
@@ -43,10 +47,10 @@ public class ArcanaGame extends ApplicationAdapter {
 		TextManager.setSpriteBatch(batch);
 		object = new GameObject("purporb.png", batch, width / 2, height / 2);
 
-		Texture playerTexture = new Texture("purporb.png");
-		player = new Player(playerTexture, 300, 400);
+		player = new Player(new Texture("purporb.png"), 300, 400);
 
 		MapProperties properties = tiledMap.getProperties();
+
 		// Get level width and height in tiles
 		int levelWidth = properties.get("width", Integer.class);
 		int levelHeight = properties.get("height", Integer.class);
@@ -90,5 +94,6 @@ public class ArcanaGame extends ApplicationAdapter {
 	@Override
 	public void dispose () {
 		batch.dispose();
+		SoundManager.dispose();
 	}
 }
