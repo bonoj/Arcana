@@ -4,6 +4,7 @@ import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.maps.MapProperties;
 import com.badlogic.gdx.maps.tiled.TiledMap;
@@ -14,6 +15,7 @@ import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 public class ArcanaGame extends ApplicationAdapter {
 	SpriteBatch batch;
 	GameObject object;
+	Player player;
 
 	TiledMap tiledMap;
 	OrthographicCamera camera;
@@ -41,6 +43,9 @@ public class ArcanaGame extends ApplicationAdapter {
 		TextManager.setSpriteBatch(batch);
 		object = new GameObject("purporb.png", batch, width / 2, height / 2);
 
+		Texture playerTexture = new Texture("purporb.png");
+		player = new Player(playerTexture, 200, 200);
+
 		MapProperties properties = tiledMap.getProperties();
 		// Get level width and height in tiles
 		int levelWidth = properties.get("width", Integer.class);
@@ -59,6 +64,7 @@ public class ArcanaGame extends ApplicationAdapter {
 
 		GameInput.update();
 		object.updatePosition();
+		player.update();
 		camera.position.x = Math.min(Math.max(object.x, width / 2), levelPixelWidth - (width / 2));
 		camera.position.x = Math.min(Math.max(object.x, height / 2), levelPixelHeight - (height / 2));
 		camera.update();
@@ -70,6 +76,8 @@ public class ArcanaGame extends ApplicationAdapter {
 		batch.begin();
 
 		batch.setProjectionMatrix(camera.combined);
+
+		player.draw(batch);
 
 		object.draw();
 
