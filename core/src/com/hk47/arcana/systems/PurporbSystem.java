@@ -5,32 +5,30 @@ import com.badlogic.ashley.core.Entity;
 import com.badlogic.ashley.core.Family;
 import com.badlogic.ashley.systems.IteratingSystem;
 import com.badlogic.gdx.Gdx;
-import com.hk47.arcana.components.PositionComponent;
+import com.hk47.arcana.components.TransformComponent;
 
 public class PurporbSystem extends IteratingSystem {
 
-    private static final Family family = Family.all(PositionComponent.class).get();
+    private static final Family family = Family.all(TransformComponent.class).get();
 
-    private ComponentMapper<PositionComponent> pm;
+    private ComponentMapper<TransformComponent> transformMapper;
 
     public PurporbSystem() {
         super(family);
 
-        pm = ComponentMapper.getFor(PositionComponent.class);
+        transformMapper = ComponentMapper.getFor(TransformComponent.class);
     }
 
     @Override
     public void update(float deltaTime) {
         super.update(deltaTime);
 
-        Gdx.app.log("ECStest","deltaTime is " + deltaTime);
-        // Do something to change a purporb's position.
+        // Do something to change a purporb's position or whatever.
     }
 
     @Override
     protected void processEntity(Entity entity, float deltaTime) {
-        PositionComponent p = pm.get(entity);
-        Gdx.app.log("ECStest","The purporb's position x is " + p.x);
-        Gdx.app.log("ECStest","The purporb's position y is " + p.y);
+        TransformComponent pos = transformMapper.get(entity);
+        Gdx.app.log("ECStest","The purporb's position is (" + pos.position.x + "," + pos.position.y + "," + pos.position.z + ")");
     }
 }
