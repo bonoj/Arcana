@@ -1,6 +1,5 @@
 package com.hk47.arcana;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
@@ -24,7 +23,7 @@ public class GameObject {
         x += GameInput.keyForce.x * speed / Time.time;
         y += GameInput.keyForce.y * speed / Time.time;
 
-        Gdx.app.log("Position: ", "(" + x + "," + y + ")");
+        // Gdx.app.log("Position: ", "(" + x + "," + y + ")");
     }
 
     public void draw() {
