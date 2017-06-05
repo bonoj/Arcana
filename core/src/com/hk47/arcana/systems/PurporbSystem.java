@@ -23,12 +23,16 @@ public class PurporbSystem extends IteratingSystem {
     public void update(float deltaTime) {
         super.update(deltaTime);
 
-        // Do something to change a purporb's position or whatever.
+        // Do something to change the player's position or whatever.
     }
 
     @Override
     protected void processEntity(Entity entity, float deltaTime) {
-        TransformComponent pos = transformMapper.get(entity);
-        Gdx.app.log("ECStest","The purporb's position is (" + pos.position.x + "," + pos.position.y + "," + pos.position.z + ")");
+        TransformComponent transformCom = transformMapper.get(entity);
+        Gdx.app.log("ECStest",
+                "The purporb's position is (" +
+                        transformCom.position.x + "," +
+                        transformCom.position.y + "," +
+                        transformCom.position.z + ")");
     }
 }

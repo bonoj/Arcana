@@ -13,7 +13,8 @@ public class RenderingSystem extends IteratingSystem {
 
     static final float PIXELS_TO_METERS = 1.0f / 32.0f;
 
-    private static final Family family = Family.all(TransformComponent.class, TextureComponent.class).get();
+    private static final Family family =
+            Family.all(TransformComponent.class, TextureComponent.class).get();
 
     private SpriteBatch batch;
     private Array<Entity> renderQueue;
@@ -41,15 +42,18 @@ public class RenderingSystem extends IteratingSystem {
 
         for (Entity entity : renderQueue) {
 
-            TextureComponent tex = textureMapper.get(entity);
+            TextureComponent textureCom = textureMapper.get(entity);
 
-            if (tex.texture == null) {
+            if (textureCom.texture == null) {
                 continue;
             }
 
-            TransformComponent t = transformMapper.get(entity);
+            TransformComponent transformCom = transformMapper.get(entity);
 
-            batch.draw(tex.texture, t.position.x, t.position.y);
+            batch.draw(
+                    textureCom.texture,
+                    transformCom.position.x,
+                    transformCom.position.y);
         }
 
         batch.end();

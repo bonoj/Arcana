@@ -1,0 +1,19 @@
+package com.hk47.arcana;
+
+import com.badlogic.ashley.core.ComponentMapper;
+import com.hk47.arcana.components.MovementComponent;
+import com.hk47.arcana.components.TextureComponent;
+import com.hk47.arcana.components.TransformComponent;
+
+public class Mappers {
+
+    public static final ComponentMapper<MovementComponent> movement =
+            ComponentMapper.getFor(MovementComponent.class);
+
+    public static final ComponentMapper<TextureComponent> texture =
+            ComponentMapper.getFor(TextureComponent.class);
+
+    public static final ComponentMapper<TransformComponent> transform =
+            ComponentMapper.getFor(TransformComponent.class);
+
+}
