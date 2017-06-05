@@ -7,6 +7,7 @@ import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.math.Vector3;
 import com.hk47.arcana.components.MovementComponent;
 import com.hk47.arcana.components.TextureComponent;
 import com.hk47.arcana.components.TransformComponent;
@@ -20,6 +21,8 @@ public class GameScreen extends ScreenAdapter {
 
     Engine engine;
 
+    World world;
+
     SpriteBatch batch;
 
     public GameScreen (ArcanaGame game) {
@@ -28,6 +31,9 @@ public class GameScreen extends ScreenAdapter {
         batch = new SpriteBatch();
 
         engine = new Engine();
+
+        world = new World(engine);
+
         engine.addSystem(new PurporbSystem());
         engine.addSystem(new RenderingSystem(batch));
         engine.addSystem(new MovementSystem());
@@ -62,6 +68,30 @@ public class GameScreen extends ScreenAdapter {
         movementComponent.acceleration.set(0, -20);
 
         engine.addEntity(purporb);
+
+        for (int i = 80; i < 500; i += 50) {
+            engine.addEntity(createPurporb(new Vector3((float) i, 30, 0)));
+        }
+    }
+
+    private Entity createPurporb(Vector3 position) {
+        Entity purporb = new Entity();
+
+        purporb.add(new TransformComponent());
+        purporb.add(new TextureComponent());
+        purporb.add(new MovementComponent());
+
+        TransformComponent transformComponent = purporb.getComponent(TransformComponent.class);
+        transformComponent.position.set(position);
+
+        TextureComponent textureComponent = purporb.getComponent(TextureComponent.class);
+        textureComponent.texture = new Texture("purporb.png");
+
+        MovementComponent movementComponent = purporb.getComponent(MovementComponent.class);
+        movementComponent.velocity.set(0, 50);
+        movementComponent.acceleration.set(0, -20);
+
+        return purporb;
     }
 
     @Override
