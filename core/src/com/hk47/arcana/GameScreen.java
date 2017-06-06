@@ -1,29 +1,20 @@
 package com.hk47.arcana;
 
 import com.badlogic.ashley.core.Engine;
-import com.badlogic.ashley.core.Entity;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.graphics.GL20;
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.math.Vector3;
-import com.hk47.arcana.components.MovementComponent;
-import com.hk47.arcana.components.TextureComponent;
-import com.hk47.arcana.components.TransformComponent;
 import com.hk47.arcana.systems.MovementSystem;
 import com.hk47.arcana.systems.PurporbSystem;
 import com.hk47.arcana.systems.RenderingSystem;
 
 public class GameScreen extends ScreenAdapter {
 
-    ArcanaGame game;
-
-    Engine engine;
-
-    World world;
-
-    SpriteBatch batch;
+    private ArcanaGame game;
+    private Engine engine;
+    private World world;
+    private SpriteBatch batch;
 
     public GameScreen (ArcanaGame game) {
         this.game = game;
@@ -54,27 +45,7 @@ public class GameScreen extends ScreenAdapter {
         float width = Gdx.graphics.getWidth();
 		float height = Gdx.graphics.getHeight();
 
-        engine.addEntity(createPurporb(new Vector3(100, 100, 0)));
-    }
-
-    private Entity createPurporb(Vector3 position) {
-        Entity purporb = new Entity();
-
-        purporb.add(new TransformComponent());
-        purporb.add(new TextureComponent());
-        purporb.add(new MovementComponent());
-
-        TransformComponent transformComponent = purporb.getComponent(TransformComponent.class);
-        transformComponent.position.set(position);
-
-        TextureComponent textureComponent = purporb.getComponent(TextureComponent.class);
-        textureComponent.texture = new Texture("purporb.png");
-
-        MovementComponent movementComponent = purporb.getComponent(MovementComponent.class);
-        movementComponent.velocity.set(0, 0);
-        movementComponent.acceleration.set(0, 0);
-
-        return purporb;
+        world.create();
     }
 
     @Override
@@ -83,7 +54,6 @@ public class GameScreen extends ScreenAdapter {
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         Gdx.gl.glBlendFunc(GL20.GL_SRC_ALPHA, GL20.GL_ONE_MINUS_SRC_ALPHA);
 
-        //engine.getSystem(PurporbSystem.class).update(delta);
         engine.update(delta);
 
         super.render(delta);

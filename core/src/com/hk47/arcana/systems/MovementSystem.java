@@ -10,13 +10,13 @@ import com.hk47.arcana.components.TransformComponent;
 
 public class MovementSystem extends IteratingSystem {
 
-    private static final Family family =
+    private static final Family FAMILY =
             Family.all(TransformComponent.class, MovementComponent.class).get();
 
     private Vector2 momentumVector = new Vector2();
 
     public MovementSystem() {
-        super(family);
+        super(FAMILY);
     }
 
     @Override

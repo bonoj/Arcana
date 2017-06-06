@@ -1,33 +1,26 @@
 package com.hk47.arcana.systems;
 
-import com.badlogic.ashley.core.ComponentMapper;
 import com.badlogic.ashley.core.Entity;
 import com.badlogic.ashley.core.Family;
 import com.badlogic.ashley.systems.IteratingSystem;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.Array;
+import com.hk47.arcana.Mappers;
 import com.hk47.arcana.components.TextureComponent;
 import com.hk47.arcana.components.TransformComponent;
 
 public class RenderingSystem extends IteratingSystem {
 
-    static final float PIXELS_TO_METERS = 1.0f / 32.0f;
-
-    private static final Family family =
+    private static final Family FAMILY =
             Family.all(TransformComponent.class, TextureComponent.class).get();
+
+    private static final float PIXELS_TO_METERS = 1.0f / 32.0f;
 
     private SpriteBatch batch;
     private Array<Entity> renderQueue;
 
-
-    private ComponentMapper<TextureComponent> textureMapper;
-    private ComponentMapper<TransformComponent> transformMapper;
-
     public RenderingSystem(SpriteBatch batch) {
-        super(family);
-
-        textureMapper = ComponentMapper.getFor(TextureComponent.class);
-        transformMapper = ComponentMapper.getFor(TransformComponent.class);
+        super(FAMILY);
 
         renderQueue = new Array<Entity>();
 
@@ -42,13 +35,13 @@ public class RenderingSystem extends IteratingSystem {
 
         for (Entity entity : renderQueue) {
 
-            TextureComponent textureCom = textureMapper.get(entity);
+            TextureComponent textureCom = Mappers.texture.get(entity);
 
             if (textureCom.texture == null) {
                 continue;
             }
 
-            TransformComponent transformCom = transformMapper.get(entity);
+            TransformComponent transformCom = Mappers.transform.get(entity);
 
             batch.draw(
                     textureCom.texture,
