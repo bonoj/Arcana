@@ -21,7 +21,7 @@ public class GameScreen extends ScreenAdapter {
     private ArcanaGame game;
     private SpriteBatch batch;
     private Engine engine;
-    private World world;
+    private Level level;
 
     private TiledMap tiledMap;
     private OrthographicCamera camera;
@@ -42,7 +42,7 @@ public class GameScreen extends ScreenAdapter {
 
         engine = new Engine();
 
-        world = new World(engine, camera);
+        level = new Level(engine, camera);
 
         engine.addSystem(new RenderingSystem(batch));
         engine.addSystem(new CameraSystem(camera));
@@ -80,7 +80,7 @@ public class GameScreen extends ScreenAdapter {
 //            }
 //        });
 
-        world.create();
+        level.create();
     }
 
     @Override

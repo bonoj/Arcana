@@ -4,21 +4,18 @@ import com.badlogic.ashley.core.Engine;
 import com.badlogic.ashley.core.Entity;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.maps.tiled.TmxMapLoader;
-import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.math.Vector3;
 import com.hk47.arcana.components.CameraComponent;
 import com.hk47.arcana.components.MovementComponent;
 import com.hk47.arcana.components.TextureComponent;
 import com.hk47.arcana.components.TransformComponent;
-import com.hk47.arcana.components.WorldMapComponent;
 
-public class World {
+public class Level {
 
     private Engine engine;
     private OrthographicCamera camera;
 
-    public World (Engine engine, OrthographicCamera camera) {
+    public Level(Engine engine, OrthographicCamera camera) {
         this.engine = engine;
         this.camera = camera;
     }
@@ -28,6 +25,7 @@ public class World {
         // Entity purporb2 = createPurporb(new Vector3(10, 7.5f, 0));
         // createCamera(purporb);
 
+        Entity worldMap = createWorldMap();
 
     }
 
@@ -35,9 +33,7 @@ public class World {
         Entity worldMap = new Entity();
         engine.addEntity(worldMap);
 
-        WorldMapComponent worldMapComponent = worldMap.getComponent(WorldMapComponent.class);
-        worldMapComponent.tiledMap = new TmxMapLoader().load("levels\\testlvl.tmx");
-        worldMapComponent.tiledMapRenderer = new OrthogonalTiledMapRenderer(worldMapComponent.tiledMap);
+
 
         return worldMap;
     }
@@ -64,7 +60,7 @@ public class World {
         textureComponent.texture = new Texture("purporb.png");
 
         MovementComponent movementComponent = purporb.getComponent(MovementComponent.class);
-        // TODO Replace this with a GravityComponent. Or just set World gravity if it will change.
+        // TODO Replace this with a GravityComponent. Or just set Level gravity if it will change.
         // TODO Remove it when not airborne, however.
         movementComponent.acceleration.y = -1500f;
         return purporb;

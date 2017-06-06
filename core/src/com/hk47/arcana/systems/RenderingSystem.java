@@ -12,7 +12,10 @@ import com.hk47.arcana.components.TransformComponent;
 public class RenderingSystem extends IteratingSystem {
 
     private static final Family FAMILY =
-            Family.all(TransformComponent.class, TextureComponent.class).get();
+            Family.all(
+                    TransformComponent.class,
+                    TextureComponent.class
+            ).get();
 
 //    private static final float PIXELS_PER_METER = 32.0f; // Tile size
 //    private static final float FRUSTUM_WIDTH = Gdx.graphics.getWidth() / PIXELS_PER_METER;

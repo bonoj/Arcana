@@ -60,7 +60,7 @@ public class ArcanaGame extends Game {
 //		TextManager.setSpriteBatch(batch);
 //		object = new GameObject("purporb.png", batch, width / 2, height / 2);
 //
-//		world = new World(new Vector2(0f, -9.8f), false);
+//		world = new Level(new Vector2(0f, -9.8f), false);
 //
 //		player = new Player(new Texture("purporb.png"), 300, 400);
 //

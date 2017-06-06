@@ -12,10 +12,7 @@ import com.hk47.arcana.components.TransformComponent;
 public class PlayerInputSystem extends IteratingSystem {
 
     private static final Family FAMILY =
-            Family.all(
-                    TransformComponent.class,
-                    MovementComponent.class
-            ).get();
+            Family.all(TransformComponent.class, MovementComponent.class).get();
 
     public PlayerInputSystem() {
         super(FAMILY);
