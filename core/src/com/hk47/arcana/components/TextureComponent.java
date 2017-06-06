@@ -5,6 +5,5 @@ import com.badlogic.gdx.graphics.Texture;
 
 public class TextureComponent implements Component {
     // public TextureRegion region = null;
-    // public Texture texture = new Texture("purporb.png");
     public Texture texture = null;
 }

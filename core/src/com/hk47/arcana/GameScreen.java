@@ -51,27 +51,10 @@ public class GameScreen extends ScreenAdapter {
 //            }
 //        });
 
-        Entity purporb = new Entity();
+        float width = Gdx.graphics.getWidth();
+		float height = Gdx.graphics.getHeight();
 
-        purporb.add(new TransformComponent());
-        purporb.add(new TextureComponent());
-        purporb.add(new MovementComponent());
-
-        TransformComponent transformComponent = purporb.getComponent(TransformComponent.class);
-        transformComponent.position.set(30.0f, 30.0f, 0f);
-
-        TextureComponent textureComponent = purporb.getComponent(TextureComponent.class);
-        textureComponent.texture = new Texture("purporb.png");
-
-        MovementComponent movementComponent = purporb.getComponent(MovementComponent.class);
-        movementComponent.velocity.set(0, 50);
-        movementComponent.acceleration.set(0, -20);
-
-        engine.addEntity(purporb);
-
-        for (int i = 80; i < 500; i += 50) {
-            engine.addEntity(createPurporb(new Vector3((float) i, 30, 0)));
-        }
+        engine.addEntity(createPurporb(new Vector3(100, 100, 0)));
     }
 
     private Entity createPurporb(Vector3 position) {
@@ -88,8 +71,8 @@ public class GameScreen extends ScreenAdapter {
         textureComponent.texture = new Texture("purporb.png");
 
         MovementComponent movementComponent = purporb.getComponent(MovementComponent.class);
-        movementComponent.velocity.set(0, 50);
-        movementComponent.acceleration.set(0, -20);
+        movementComponent.velocity.set(0, 0);
+        movementComponent.acceleration.set(0, 0);
 
         return purporb;
     }
@@ -102,7 +85,6 @@ public class GameScreen extends ScreenAdapter {
 
         //engine.getSystem(PurporbSystem.class).update(delta);
         engine.update(delta);
-
 
         super.render(delta);
     }

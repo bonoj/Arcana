@@ -13,7 +13,7 @@ public class MovementSystem extends IteratingSystem {
     private static final Family family =
             Family.all(TransformComponent.class, MovementComponent.class).get();
 
-    private Vector2 movementVector = new Vector2();
+    private Vector2 momentumVector = new Vector2();
 
     public MovementSystem() {
         super(family);
@@ -24,11 +24,10 @@ public class MovementSystem extends IteratingSystem {
         TransformComponent transformComponent = Mappers.transform.get(entity);
         MovementComponent movementComponent = Mappers.movement.get(entity);
 
-        // Calculate the change in velocity
-        movementVector.set(movementComponent.acceleration).scl(deltaTime);
-        movementComponent.velocity.add(movementVector);
+        momentumVector.set(movementComponent.acceleration).scl(deltaTime);
+        movementComponent.velocity.add(momentumVector);
 
-        movementVector.set(movementComponent.velocity).scl(deltaTime);
-        transformComponent.position.add(movementVector.x, movementVector.y, 0.0f);
+        momentumVector.set(movementComponent.velocity).scl(deltaTime);
+        transformComponent.position.add(momentumVector.x, momentumVector.y, 0.0f);
     }
 }
