@@ -82,7 +82,7 @@ public class ArcanaGame extends Game {
 	}
 
 //	@Override
-//	public void render () {
+//	public void update () {
 //		Gdx.gl.glClearColor(0, 0, 0, 1);
 //		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 //		Gdx.gl.glBlendFunc(GL20.GL_SRC_ALPHA, GL20.GL_ONE_MINUS_SRC_ALPHA);
@@ -95,7 +95,7 @@ public class ArcanaGame extends Game {
 //		camera.update();
 //
 //		tiledMapRenderer.setView(camera);
-//		tiledMapRenderer.render();
+//		tiledMapRenderer.update();
 //
 //
 //		batch.begin();

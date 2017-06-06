@@ -4,6 +4,11 @@ import com.badlogic.ashley.core.Engine;
 import com.badlogic.ashley.core.Entity;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.maps.MapProperties;
+import com.badlogic.gdx.maps.tiled.TiledMap;
+import com.badlogic.gdx.maps.tiled.TiledMapRenderer;
+import com.badlogic.gdx.maps.tiled.TmxMapLoader;
+import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.math.Vector3;
 import com.hk47.arcana.components.CameraComponent;
 import com.hk47.arcana.components.MovementComponent;
@@ -12,8 +17,13 @@ import com.hk47.arcana.components.TransformComponent;
 
 public class Level {
 
+    public float levelPixelWidth;
+    public float levelPixelHeight;
+
     private Engine engine;
     private OrthographicCamera camera;
+    TiledMap tiledMap;
+    TiledMapRenderer tiledMapRenderer;
 
     public Level(Engine engine, OrthographicCamera camera) {
         this.engine = engine;
@@ -21,21 +31,30 @@ public class Level {
     }
 
     public void create() {
-        Entity purporb = createPurporb(new Vector3(300, 300, 0));
+        tiledMap = new TmxMapLoader().load("levels\\testlvl.tmx");
+        tiledMapRenderer = new OrthogonalTiledMapRenderer(tiledMap);
+
+        MapProperties properties = tiledMap.getProperties();
+        int levelWidth = properties.get("width", Integer.class); // Level width in tiles
+        int levelHeight = properties.get("height", Integer.class); // Level height in tiles
+        int tilePixelWidth = properties.get("tilewidth", Integer.class);
+        int tilePixelHeight = properties.get("tileheight", Integer.class);
+        levelPixelWidth = levelWidth * tilePixelWidth;
+        levelPixelHeight = levelHeight * tilePixelHeight;
+
+
+
+
+        Entity purporb = createPurporb(new Vector3(320, 400, 0));
         // Entity purporb2 = createPurporb(new Vector3(10, 7.5f, 0));
         // createCamera(purporb);
 
-        Entity worldMap = createWorldMap();
 
     }
 
-    private Entity createWorldMap() {
-        Entity worldMap = new Entity();
-        engine.addEntity(worldMap);
-
-
-
-        return worldMap;
+    public void update() {
+        tiledMapRenderer.setView(camera);
+        tiledMapRenderer.render();
     }
 
     private void setChaseCamera(Entity entity) {
