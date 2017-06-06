@@ -42,23 +42,12 @@ public class Level {
         levelPixelWidth = levelWidth * tilePixelWidth;
         levelPixelHeight = levelHeight * tilePixelHeight;
 
-
-
-
-        Entity purporb = createPurporb(new Vector3(320, 400, 0));
-        // Entity purporb2 = createPurporb(new Vector3(10, 7.5f, 0));
-        // createCamera(purporb);
-
-
+        createPurporb(new Vector3(320, 400, 0));
     }
 
     public void update() {
         tiledMapRenderer.setView(camera);
         tiledMapRenderer.render();
-    }
-
-    private void setChaseCamera(Entity entity) {
-
     }
 
     private Entity createPurporb(Vector3 position) {
@@ -78,21 +67,10 @@ public class Level {
         TextureComponent textureComponent = purporb.getComponent(TextureComponent.class);
         textureComponent.texture = new Texture("purporb.png");
 
-        MovementComponent movementComponent = purporb.getComponent(MovementComponent.class);
         // TODO Replace this with a GravityComponent. Or just set Level gravity if it will change.
         // TODO Remove it when not airborne, however.
+        MovementComponent movementComponent = purporb.getComponent(MovementComponent.class);
         movementComponent.acceleration.y = -1500f;
         return purporb;
     }
-
-//    private void createCamera(Entity target) {
-//        Entity camera = new Entity();
-//        engine.addEntity(camera);
-//
-//        CameraComponent cameraComponent = new CameraComponent();
-//        cameraComponent.camera = engine.getSystem(RenderingSystem.class).getCamera();
-//        cameraComponent.target = target;
-//        Gdx.app.log("Camera at ", "X: " +
-//                cameraComponent.camera.position.x + " Y: " + cameraComponent.camera.position.y);
-//    }
 }
