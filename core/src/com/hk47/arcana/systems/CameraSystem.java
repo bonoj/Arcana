@@ -28,8 +28,10 @@ public class CameraSystem extends IteratingSystem {
         TransformComponent transformComponent = Mappers.transform.get(entity);
 
 
+        // TODO Give CameraSystem some idea about world coordinates?
        //  camera.position.x = Math.min(Math.max(transformComponent.position.x, width / 2), levelPixelWidth - (width / 2));
 //		camera.position.y = Math.min(Math.max(object.y, height / 2), levelPixelHeight - (height / 2));
+
 
 
         camera.position.x = transformComponent.position.x;

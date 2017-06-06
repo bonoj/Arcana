@@ -53,7 +53,6 @@ public class ArcanaGame extends Game {
 //
 //		camera = new OrthographicCamera();
 //		camera.setToOrtho(false, width, height);
-//		camera.update();
 //
 //		tiledMap = new TmxMapLoader().load("levels\\testlvl.tmx");
 //		tiledMapRenderer = new OrthogonalTiledMapRenderer(tiledMap);

@@ -4,24 +4,46 @@ import com.badlogic.ashley.core.Engine;
 import com.badlogic.ashley.core.Entity;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.maps.tiled.TmxMapLoader;
+import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.math.Vector3;
 import com.hk47.arcana.components.CameraComponent;
 import com.hk47.arcana.components.MovementComponent;
 import com.hk47.arcana.components.TextureComponent;
 import com.hk47.arcana.components.TransformComponent;
+import com.hk47.arcana.components.WorldMapComponent;
 
 public class World {
 
     private Engine engine;
+    private OrthographicCamera camera;
 
     public World (Engine engine, OrthographicCamera camera) {
         this.engine = engine;
+        this.camera = camera;
     }
 
     public void create() {
-        Entity purporb = createPurporb(new Vector3(100, 100, 0));
+        Entity purporb = createPurporb(new Vector3(300, 300, 0));
         // Entity purporb2 = createPurporb(new Vector3(10, 7.5f, 0));
         // createCamera(purporb);
+
+
+    }
+
+    private Entity createWorldMap() {
+        Entity worldMap = new Entity();
+        engine.addEntity(worldMap);
+
+        WorldMapComponent worldMapComponent = worldMap.getComponent(WorldMapComponent.class);
+        worldMapComponent.tiledMap = new TmxMapLoader().load("levels\\testlvl.tmx");
+        worldMapComponent.tiledMapRenderer = new OrthogonalTiledMapRenderer(worldMapComponent.tiledMap);
+
+        return worldMap;
+    }
+
+    private void setChaseCamera(Entity entity) {
+
     }
 
     private Entity createPurporb(Vector3 position) {
@@ -42,12 +64,9 @@ public class World {
         textureComponent.texture = new Texture("purporb.png");
 
         MovementComponent movementComponent = purporb.getComponent(MovementComponent.class);
-        movementComponent.velocity.set(0, 0);
-        movementComponent.acceleration.set(0, 0);
-
-        // CameraComponent cameraComponent = purporb.getComponent(CameraComponent.class);
-        // cameraComponent.camera.setToOrtho(false, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
-
+        // TODO Replace this with a GravityComponent. Or just set World gravity if it will change.
+        // TODO Remove it when not airborne, however.
+        movementComponent.acceleration.y = -1500f;
         return purporb;
     }
 

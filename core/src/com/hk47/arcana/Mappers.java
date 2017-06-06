@@ -5,6 +5,7 @@ import com.hk47.arcana.components.CameraComponent;
 import com.hk47.arcana.components.MovementComponent;
 import com.hk47.arcana.components.TextureComponent;
 import com.hk47.arcana.components.TransformComponent;
+import com.hk47.arcana.components.WorldMapComponent;
 
 public class Mappers {
 
@@ -19,5 +20,8 @@ public class Mappers {
 
     public static final ComponentMapper<CameraComponent> camera =
             ComponentMapper.getFor(CameraComponent.class);
+
+    public static final ComponentMapper<WorldMapComponent> worldMap =
+            ComponentMapper.getFor(WorldMapComponent.class);
 
 }

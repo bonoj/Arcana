@@ -6,20 +6,18 @@ import com.badlogic.ashley.systems.IteratingSystem;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.hk47.arcana.Mappers;
-import com.hk47.arcana.components.CameraComponent;
 import com.hk47.arcana.components.MovementComponent;
 import com.hk47.arcana.components.TransformComponent;
 
-public class PurporbSystem extends IteratingSystem {
+public class PlayerInputSystem extends IteratingSystem {
 
     private static final Family FAMILY =
             Family.all(
                     TransformComponent.class,
-                    MovementComponent.class,
-                    CameraComponent.class
+                    MovementComponent.class
             ).get();
 
-    public PurporbSystem() {
+    public PlayerInputSystem() {
         super(FAMILY);
 
     }
@@ -58,10 +56,10 @@ public class PurporbSystem extends IteratingSystem {
         // Handle player collision
         // Make "ground" solid (Temporary, replace with CollisionSystem)
         // Remove gravity (Temporary solution)
-        if (transformComponent.position.y < 100) {
+        if (transformComponent.position.y < 64) {
             movementComponent.acceleration.y = 0;
             movementComponent.velocity.y = 0;
-            transformComponent.position.y = 100;
+            transformComponent.position.y = 64;
         }
 
         Gdx.app.log("Player position", "X: " + transformComponent.position.x +
