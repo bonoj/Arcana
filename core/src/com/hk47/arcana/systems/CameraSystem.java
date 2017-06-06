@@ -37,9 +37,9 @@ public class CameraSystem extends IteratingSystem {
             camera.position.x = Gdx.graphics.getWidth() / 2;
         }
 
-//        if (camera.position.x + width > level.levelPixelWidth) {
-//            camera.position.x = level.levelPixelWidth - width / 2;
-//        }
+        if (camera.position.x > level.levelPixelWidth - Gdx.graphics.getWidth() / 2) {
+            camera.position.x = level.levelPixelWidth - Gdx.graphics.getWidth() / 2;
+        }
 
 //        if (camera.position.y - Gdx.graphics.getHeight() / 2 < 0) {
 //            camera.position.y = Gdx.graphics.getHeight() / 2;
