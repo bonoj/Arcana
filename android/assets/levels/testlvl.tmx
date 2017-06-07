@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="2017.05.26" orientation="orthogonal" renderorder="right-down" width="40" height="20" tilewidth="32" tileheight="32" nextobjectid="1">
+<map version="2017.05.26" orientation="orthogonal" renderorder="right-down" width="40" height="20" tilewidth="32" tileheight="32" nextobjectid="10">
  <tileset firstgid="1" source="Abstract Platformer Tileset.tsx"/>
  <layer name="background" width="40" height="20">
   <data encoding="csv">
@@ -46,7 +46,7 @@
 0,0,0,94,94,0,0,98,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,136,137,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,179,180,181,182,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-47,48,49,50,227,228,229,230,49,50,51,52,0,0,0,0,47,48,49,50,231,232,233,234,231,232,233,234,231,232,233,234,231,232,231,232,233,50,51,52
+47,48,49,50,227,228,229,230,49,50,51,52,0,0,0,0,47,48,49,50,51,52,47,48,49,50,51,52,53,54,47,48,49,50,51,52,53,54,51,52
 </data>
  </layer>
  <layer name="collision" width="40" height="20">
