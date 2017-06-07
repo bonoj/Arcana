@@ -3,7 +3,6 @@ package com.hk47.arcana.systems;
 import com.badlogic.ashley.core.Entity;
 import com.badlogic.ashley.core.Family;
 import com.badlogic.ashley.systems.IteratingSystem;
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.hk47.arcana.Level;
 import com.hk47.arcana.Mappers;
@@ -33,13 +32,13 @@ public class CameraSystem extends IteratingSystem {
         // camera.position.y = transformComponent.position.y;
 
         // TODO Allow Level.class to handle adding and detaching camera component from player instead.
-        if (camera.position.x - Gdx.graphics.getWidth() / 2 < 0) {
-            camera.position.x = Gdx.graphics.getWidth() / 2;
-        }
-
-        if (camera.position.x > level.levelPixelWidth - Gdx.graphics.getWidth() / 2) {
-            camera.position.x = level.levelPixelWidth - Gdx.graphics.getWidth() / 2;
-        }
+//        if (camera.position.x - Gdx.graphics.getWidth() / 2 < 0) {
+//            camera.position.x = Gdx.graphics.getWidth() / 2;
+//        }
+//
+//        if (camera.position.x > level.levelPixelWidth - Gdx.graphics.getWidth() / 2) {
+//            camera.position.x = level.levelPixelWidth - Gdx.graphics.getWidth() / 2;
+//        }
 
 //        if (camera.position.y - Gdx.graphics.getHeight() / 2 < 0) {
 //            camera.position.y = Gdx.graphics.getHeight() / 2;
