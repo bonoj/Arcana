@@ -1,6 +1,6 @@
 # Arcana
 
-Multiplatform - An entity-component system based 2D platformer powered by libGDX and Ashley ECS.
+Multiplatform - An entity-component system based 2D platformer powered by libGDX, Ashley ECS, and Tiled.
 
 #### Engine
 Currently using Ashley's **Engine** class. Will be migrating to **PooledEngine** in the near future, once the **AnimationSystem** has been implemented.
