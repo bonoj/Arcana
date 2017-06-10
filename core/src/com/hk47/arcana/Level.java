@@ -27,13 +27,11 @@ public class Level {
     public float levelPixelHeight;
 
     private Engine engine;
-    private OrthographicCamera camera;
     TiledMap tiledMap;
     TiledMapRenderer tiledMapRenderer;
 
-    public Level(Engine engine, OrthographicCamera camera) {
+    public Level(Engine engine) {
         this.engine = engine;
-        this.camera = camera;
     }
 
     public void create() {
@@ -45,8 +43,8 @@ public class Level {
         // TODO Check to see if an ObjectLayer with a PolyLine is a better solution for collision
 
         TiledMapTileLayer collisionLayer = (TiledMapTileLayer) tiledMap.getLayers().get("collision");
-
-        // Works, but how to handle tiles with curves, inclines, etc?
+        // Collision TileLayer works, but cannot easily handle partial tiles
+        // Also, integrates less easily with Box2D than an ObjectLayer with collision objects
         for (int x = 0; x < collisionLayer.getWidth(); x++) {
             for (int y = 0; y < collisionLayer.getHeight(); y++) {
                 if (collisionLayer.getCell(x, y) != null) {
@@ -57,19 +55,16 @@ public class Level {
 
         // TODO Begin to use Box2D with Tiled Collision ObjectLayer in CollisionSystem class
         // TODO Pass level reference to CollisionSystem in GameScreen.
-        // Collision ObjectLayer solution using Polyline
+        // Collision ObjectLayer using Polyline
         MapLayer collisionObjectLayer = tiledMap.getLayers().get("collisionObjects");
         MapObjects objects = collisionObjectLayer.getObjects();
 
         for (MapObject object : objects) {
-//            String objectId = (String) object.getProperties().get("object id");
-//            Gdx.app.log("objectId: ", "" + objectId);
-
             PolylineMapObject polyline = (PolylineMapObject) object;
             float[] vertices = polyline.getPolyline().getTransformedVertices();
-            for (float vertex : vertices) {
-                Gdx.app.log("Vertex at: ", "" + vertex);
-            }
+//            for (float vertex : vertices) {
+//                Gdx.app.log("Vertex at: ", "" + vertex);
+//            }
             for (int i = 0; i < vertices.length; i++) {
                 if (i % 2 == 0) {
                     Gdx.app.log("X: ", vertices[i] + "");
@@ -80,7 +75,7 @@ public class Level {
         }
     }
 
-    public void update() {
+    public void update(OrthographicCamera camera) {
         tiledMapRenderer.setView(camera);
         tiledMapRenderer.render();
     }
