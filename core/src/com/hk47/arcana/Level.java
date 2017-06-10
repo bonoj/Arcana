@@ -37,7 +37,6 @@ public class Level {
 
         createPurporb(new Vector3(320, 400, 0));
 
-
         // TODO Find collision layer data.
         // TODO If good solution, pass level reference to CollisionSystem in GameScreen.
         // TODO Check to see if an ObjectLayer with a PolyLine is a better solution for collision
@@ -46,8 +45,9 @@ public class Level {
 
         for (int x = 0; x < collisionLayer.getWidth(); x++) {
             for (int y = 0; y < collisionLayer.getHeight(); y++) {
-                if (collisionLayer.getCell(x, y) != null)
-                Gdx.app.log("Tile at (" + x + "," + y + ")", "Collidable tile found!");
+                if (collisionLayer.getCell(x, y) != null) {
+                    Gdx.app.log("Tile at (" + x + "," + y + ")", "Collidable tile found!");
+                }
             }
         }
 
