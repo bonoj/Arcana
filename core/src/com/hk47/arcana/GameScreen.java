@@ -55,6 +55,7 @@ public class GameScreen extends ScreenAdapter {
     public void dispose() {
         super.dispose();
         batch.dispose();
+        level.dispose();
     }
 }
 

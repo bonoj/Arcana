@@ -5,7 +5,11 @@ import com.badlogic.ashley.core.Entity;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.maps.MapLayer;
+import com.badlogic.gdx.maps.MapObject;
+import com.badlogic.gdx.maps.MapObjects;
 import com.badlogic.gdx.maps.MapProperties;
+import com.badlogic.gdx.maps.objects.PolylineMapObject;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TiledMapRenderer;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
@@ -41,16 +45,39 @@ public class Level {
         // TODO If good solution, pass level reference to CollisionSystem in GameScreen.
         // TODO Check to see if an ObjectLayer with a PolyLine is a better solution for collision
 
-        TiledMapTileLayer collisionLayer = (TiledMapTileLayer)tiledMap.getLayers().get("collision");
+        TiledMapTileLayer collisionLayer = (TiledMapTileLayer) tiledMap.getLayers().get("collision");
 
+        // Works, but how to handle tiles with curves, inclines, etc?
         for (int x = 0; x < collisionLayer.getWidth(); x++) {
             for (int y = 0; y < collisionLayer.getHeight(); y++) {
                 if (collisionLayer.getCell(x, y) != null) {
-                    Gdx.app.log("Tile at (" + x + "," + y + ")", "Collidable tile found!");
+                    // Gdx.app.log("Tile at (" + x + "," + y + ")", "Collidable tile found!");
                 }
             }
         }
 
+        // TODO Begin to use Box2D with Tiled Collision ObjectLayer in CollisionSystem class
+        // Polyline
+        MapLayer collisionObjectLayer = tiledMap.getLayers().get("collisionObjects");
+        MapObjects objects = collisionObjectLayer.getObjects();
+
+        for (MapObject object : objects) {
+//            String objectId = (String) object.getProperties().get("object id");
+//            Gdx.app.log("objectId: ", "" + objectId);
+
+            PolylineMapObject polyline = (PolylineMapObject) object;
+            float[] vertices = polyline.getPolyline().getTransformedVertices();
+            for (float vertex : vertices) {
+                Gdx.app.log("Vertex at: ", "" + vertex);
+            }
+            for (int i = 0; i < vertices.length; i++) {
+                if (i % 2 == 0) {
+                    Gdx.app.log("X: ", vertices[i] + "");
+                } else {
+                    Gdx.app.log("Y: ", vertices[i] + "");
+                }
+            }
+        }
     }
 
     public void update() {
@@ -94,5 +121,9 @@ public class Level {
         MovementComponent movementComponent = purporb.getComponent(MovementComponent.class);
         movementComponent.acceleration.y = -1500f;
         return purporb;
+    }
+
+    public void dispose() {
+        tiledMap.dispose();
     }
 }
