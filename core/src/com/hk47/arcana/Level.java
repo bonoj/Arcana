@@ -2,11 +2,13 @@ package com.hk47.arcana;
 
 import com.badlogic.ashley.core.Engine;
 import com.badlogic.ashley.core.Entity;
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.maps.MapProperties;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TiledMapRenderer;
+import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.math.Vector3;
@@ -31,6 +33,32 @@ public class Level {
     }
 
     public void create() {
+        initializeLevel();
+
+        createPurporb(new Vector3(320, 400, 0));
+
+
+        // TODO Find collision layer data.
+        // TODO If good solution, pass level reference to CollisionSystem in GameScreen.
+        // TODO Check to see if an ObjectLayer with a PolyLine is a better solution for collision
+
+        TiledMapTileLayer collisionLayer = (TiledMapTileLayer)tiledMap.getLayers().get("collision");
+
+        for (int x = 0; x < collisionLayer.getWidth(); x++) {
+            for (int y = 0; y < collisionLayer.getHeight(); y++) {
+                if (collisionLayer.getCell(x, y) != null)
+                Gdx.app.log("Tile at (" + x + "," + y + ")", "Collidable tile found!");
+            }
+        }
+
+    }
+
+    public void update() {
+        tiledMapRenderer.setView(camera);
+        tiledMapRenderer.render();
+    }
+
+    private void initializeLevel() {
         tiledMap = new TmxMapLoader().load("levels\\testlvl.tmx");
         tiledMapRenderer = new OrthogonalTiledMapRenderer(tiledMap);
 
@@ -41,13 +69,6 @@ public class Level {
         int tilePixelHeight = properties.get("tileheight", Integer.class);
         levelPixelWidth = levelWidth * tilePixelWidth;
         levelPixelHeight = levelHeight * tilePixelHeight;
-
-        createPurporb(new Vector3(320, 400, 0));
-    }
-
-    public void update() {
-        tiledMapRenderer.setView(camera);
-        tiledMapRenderer.render();
     }
 
     private Entity createPurporb(Vector3 position) {
@@ -68,7 +89,8 @@ public class Level {
         textureComponent.texture = new Texture("purporb.png");
 
         // TODO Replace this with a GravityComponent. Or just set Level gravity if it will change.
-        // TODO Remove it when not airborne, however.
+        // TODO Remove it when not airborne, however. Perhaps implement a GravitySystem.
+        // Add gravity
         MovementComponent movementComponent = purporb.getComponent(MovementComponent.class);
         movementComponent.acceleration.y = -1500f;
         return purporb;

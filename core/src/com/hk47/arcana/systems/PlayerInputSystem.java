@@ -59,7 +59,7 @@ public class PlayerInputSystem extends IteratingSystem {
             transformComponent.position.y = 64;
         }
 
-        Gdx.app.log("Player position", "X: " + transformComponent.position.x +
-                " Y: " + transformComponent.position.y);
+//        Gdx.app.log("Player position", "X: " + transformComponent.position.x +
+//                " Y: " + transformComponent.position.y);
     }
 }
