@@ -37,11 +37,11 @@ public class CollisionSystem extends IteratingSystem {
             ArrayList<Vector2> platform = new ArrayList<Vector2>();
 
             PolylineMapObject polyline = (PolylineMapObject) object;
-            Gdx.app.log("Platform", " created!");
+
             float[] vertices = polyline.getPolyline().getTransformedVertices();
-            for (float vertex : vertices) {
-                Gdx.app.log("Vertex at: ", "" + vertex);
-            }
+//            for (float vertex : vertices) {
+//                Gdx.app.log("Vertex at: ", "" + vertex);
+//            }
             for (int i = 0; i < vertices.length - 1; i += 2) {
                 platform.add(new Vector2(vertices[i], vertices[i + 1]));
 
@@ -54,17 +54,17 @@ public class CollisionSystem extends IteratingSystem {
             platforms.add(platform);
         }
 
-        Gdx.app.log("Platforms: ", "" + platforms.size());
-        Gdx.app.log("Platform 1 start: ", "" + platforms.get(0).get(0).x + "," + platforms.get(0).get(0).y);
-        Gdx.app.log("Platform 1 end: ", "" + platforms.get(0).get(platforms.get(0).size() - 1).x + "," + platforms.get(0).get(platforms.get(0).size() - 1).y);
-        Gdx.app.log("Platform 2 start: ", "" + platforms.get(1).get(0).x + "," + platforms.get(1).get(0).y);
-        Gdx.app.log("Platform 2 end: ", "" + platforms.get(1).get(platforms.get(1).size() - 1).x + "," + platforms.get(1).get(platforms.get(1).size() - 1).y);
-        Gdx.app.log("Platform 3 start: ", "" + platforms.get(2).get(0).x + "," + platforms.get(2).get(0).y);
-        Gdx.app.log("Platform 3 end: ", "" + platforms.get(2).get(platforms.get(2).size() - 1).x + "," + platforms.get(2).get(platforms.get(2).size() - 1).y);
+//        Gdx.app.log("Platforms: ", "" + platforms.size());
+//        Gdx.app.log("Platform 1 start: ", "" + platforms.get(0).get(0).x + "," + platforms.get(0).get(0).y);
+//        Gdx.app.log("Platform 1 end: ", "" + platforms.get(0).get(platforms.get(0).size() - 1).x + "," + platforms.get(0).get(platforms.get(0).size() - 1).y);
+//        Gdx.app.log("Platform 2 start: ", "" + platforms.get(1).get(0).x + "," + platforms.get(1).get(0).y);
+//        Gdx.app.log("Platform 2 end: ", "" + platforms.get(1).get(platforms.get(1).size() - 1).x + "," + platforms.get(1).get(platforms.get(1).size() - 1).y);
+//        Gdx.app.log("Platform 3 start: ", "" + platforms.get(2).get(0).x + "," + platforms.get(2).get(0).y);
+//        Gdx.app.log("Platform 3 end: ", "" + platforms.get(2).get(platforms.get(2).size() - 1).x + "," + platforms.get(2).get(platforms.get(2).size() - 1).y);
 //        Gdx.app.log("Platform 3 start: ", "" + platforms.get(2).get(0).x + "," + platforms.get(2).get(0).y);
     }
 
-    private ArrayList<Vector2> currentPlatform;
+    private ArrayList<Vector2> currentPlatform = null;
 
     @Override
     protected void processEntity(Entity entity, float deltaTime) {
@@ -74,38 +74,73 @@ public class CollisionSystem extends IteratingSystem {
 
         // Handling level collision pre-Box2D, this will all change
 
-        float x = transformComponent.position.x;
-        float y = transformComponent.position.y;
-
         // Temporarily testing state here.
         final int falling = 2;
         final int jumping = 1;
         final int walking = 0;
         int state = 2;
 
-        // Pre StateSystem jump test, will be removed!
+        // Pre PlayerStateSystem or GravitySystem jump test, will be removed!
         if (Gdx.input.isKeyJustPressed(Input.Keys.SPACE)) {
             state = 1;
+            currentPlatform = null;
         }
 
+        // Debug reset, DELETE ME! :)
+        if (Gdx.input.isKeyJustPressed(Input.Keys.R)) {
+            transformComponent.position.x = 320;
+            transformComponent.position.y = 400;
+            movementComponent.velocity.y = 0;
+            movementComponent.acceleration.y = -1500f;
+        }
 
-        for (ArrayList<Vector2> platform : platforms) {
-            if (state != 0 && currentPlatform == null) {
-                if (x >= platform.get(0).x && x <= platform.get(platform.size() - 1).x) {
-                    currentPlatform = platform;
-                } else currentPlatform = null;
-            }
-            if (currentPlatform != null) {
-                if (y < currentPlatform.get(0).y) {
-
-                    // Player landed on a platform
-                    state = 0;
-                    movementComponent.acceleration.y = 0;
-                    movementComponent.velocity.y = 0;
-                    transformComponent.position.y = currentPlatform.get(0).y;
+        if (currentPlatform == null) {
+            int j = 0;
+            for (ArrayList<Vector2> platform : platforms) {
+                Gdx.app.log("", j++ + ": platY: " + platform.get(0).y + " playerY: " + transformComponent.position.y);
+                if (transformComponent.position.y >= platform.get(0).y) {
+                    if (transformComponent.position.x >= platform.get(0).x && transformComponent.position.x <= platform.get(platform.size() - 1).x) {
+                        Gdx.app.log("", "Platform created.");
+                        currentPlatform = platform;
+                    }
                 }
             }
         }
+
+        if (currentPlatform != null) {
+            if (transformComponent.position.x < currentPlatform.get(0).x || transformComponent.position.x > currentPlatform.get(currentPlatform.size() - 1).x) {
+                currentPlatform = null;
+                Gdx.app.log("", "Platform destroyed.");
+                if (state != 1) {
+                    state = 2;
+                    movementComponent.acceleration.y = -1500f;
+                }
+                return;
+            }
+
+            if (state != 0 && transformComponent.position.y < currentPlatform.get(0).y) {
+
+                // Player landed on a platform
+                state = 0;
+                movementComponent.acceleration.y = 0;
+                movementComponent.velocity.y = 0;
+                transformComponent.position.y = currentPlatform.get(0).y;
+        }
+
+
+
+
+
+//                    if (state != 1) {
+//                        state = 2;
+//                        // Player is no longer on platform and is not jumping, so apply gravity
+//                        movementComponent.acceleration.y = -1500f;
+//
+//                    }
+
+
+        }
+
     }
 }
 //                    if (y < currentPlatform.get(0).y) {

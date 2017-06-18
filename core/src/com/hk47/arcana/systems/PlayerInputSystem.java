@@ -47,7 +47,7 @@ public class PlayerInputSystem extends IteratingSystem {
             if (movementComponent.velocity.y == 0) {
                 // Apply gravity, temporary solution
                 movementComponent.acceleration.y = -1500;
-                movementComponent.velocity.y = 500;
+                movementComponent.velocity.y = 550;
             }
         }
 
