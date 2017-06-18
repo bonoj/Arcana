@@ -7,6 +7,7 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.hk47.arcana.systems.CameraSystem;
+import com.hk47.arcana.systems.CollisionSystem;
 import com.hk47.arcana.systems.MovementSystem;
 import com.hk47.arcana.systems.PlayerInputSystem;
 import com.hk47.arcana.systems.RenderingSystem;
@@ -36,6 +37,7 @@ public class GameScreen extends ScreenAdapter {
         engine.addSystem(new CameraSystem(camera, level));
         engine.addSystem(new MovementSystem());
         engine.addSystem(new PlayerInputSystem());
+        engine.addSystem(new CollisionSystem(level));
     }
 
     @Override

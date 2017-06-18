@@ -29,5 +29,7 @@ public class MovementSystem extends IteratingSystem {
 
         momentumVector.set(movementComponent.velocity).scl(deltaTime);
         transformComponent.position.add(momentumVector.x, momentumVector.y, 0.0f);
+
+        //Gdx.app.log("Player at: ", transformComponent.position.x + "," + transformComponent.position.y);
     }
 }

@@ -14,9 +14,10 @@ public class PlayerInputSystem extends IteratingSystem {
     private static final Family FAMILY =
             Family.all(TransformComponent.class, MovementComponent.class).get();
 
+
+
     public PlayerInputSystem() {
         super(FAMILY);
-
     }
 
     @Override
@@ -53,11 +54,11 @@ public class PlayerInputSystem extends IteratingSystem {
         // Handle player collision
         // Make "ground" solid (Temporary, replace with CollisionSystem)
         // Remove gravity (Temporary solution)
-        if (transformComponent.position.y < 64) {
-            movementComponent.acceleration.y = 0;
-            movementComponent.velocity.y = 0;
-            transformComponent.position.y = 64;
-        }
+//        if (transformComponent.position.y < 64) {
+//            movementComponent.acceleration.y = 0;
+//            movementComponent.velocity.y = 0;
+//            transformComponent.position.y = 64;
+//        }
 
 //        Gdx.app.log("Player position", "X: " + transformComponent.position.x +
 //                " Y: " + transformComponent.position.y);
