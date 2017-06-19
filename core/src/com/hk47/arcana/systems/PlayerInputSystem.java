@@ -51,6 +51,18 @@ public class PlayerInputSystem extends IteratingSystem {
             }
         }
 
+        // Touch controls to be implemented later.
+//        if (Gdx.input.justTouched()) {
+//            if (movementComponent.velocity.y == 0) {
+//                // Apply gravity, temporary solution
+//                movementComponent.acceleration.y = -1500;
+//                movementComponent.velocity.y = 550;
+//            }
+//        }
+//        if (Gdx.input.isTouched()){
+//            movementComponent.velocity.x = 200;
+//        }
+
         // Handle player collision
         // Make "ground" solid (Temporary, replace with CollisionSystem)
         // Remove gravity (Temporary solution)

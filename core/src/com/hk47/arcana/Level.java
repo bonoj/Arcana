@@ -75,7 +75,7 @@ public class Level {
     }
 
     private void initializeLevel() {
-        tiledMap = new TmxMapLoader().load("levels\\testlvl.tmx");
+        tiledMap = new TmxMapLoader().load("levels\\testlvl2.tmx");
         tiledMapRenderer = new OrthogonalTiledMapRenderer(tiledMap);
 
         MapProperties properties = tiledMap.getProperties();
