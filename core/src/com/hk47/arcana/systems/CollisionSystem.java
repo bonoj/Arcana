@@ -86,13 +86,53 @@ public class CollisionSystem extends IteratingSystem {
             currentPlatform = null;
         }
 
+        // Log Player position
+//        Gdx.app.log("Player position", "(" + transformComponent.position.x + "," + transformComponent.position.y + ")");
+
+        //if (currentPlatform == null) {
+
+        float x = transformComponent.position.x;
+        float y = transformComponent.position.y;
+        int highestPlatform = -1;
+        for (int i = 0; i < platforms.size(); i++) {
+            ArrayList<Vector2> platform = platforms.get(i);
+            // Find all of the platforms the player is standing over
+            if (x >= platform.get(0).x && x <= platform.get(platform.size() - 1).x) {
+                //Gdx.app.log("Player x within ", "platform: " + i);
+                // Now if the player is over a platform, find the highest platform that the player is over
+
+                if (y >= platform.get(0).y) {
+                    //Gdx.app.log("Player y over ", "platform: " + i);
+                    if (i > highestPlatform) {
+                        highestPlatform = i;
+                    }
+                }
+
+            }
+            Gdx.app.log("Player y over ", "platform: " + highestPlatform);
+            if (highestPlatform != -1) {
+                currentPlatform = platforms.get(highestPlatform);
+            }
+
+
+//                Gdx.app.log("", j++ + ": platY: " + platform.get(0).y + " playerY: " + transformComponent.position.y);
+//                if (transformComponent.position.y >= platform.get(0).y) {
+//                    if (transformComponent.position.x >= platform.get(0).x && transformComponent.position.x <= platform.get(platform.size() - 1).x) {
+////                        Gdx.app.log("", "Platform created.");
+//                        currentPlatform = platform;
+//                    }
+//                }
+        }
+        //}
+
+        // Working collision, but problems with landing on higher platforms.
         if (currentPlatform == null) {
             int j = 0;
             for (ArrayList<Vector2> platform : platforms) {
-                Gdx.app.log("", j++ + ": platY: " + platform.get(0).y + " playerY: " + transformComponent.position.y);
+//                Gdx.app.log("", j++ + ": platY: " + platform.get(0).y + " playerY: " + transformComponent.position.y);
                 if (transformComponent.position.y >= platform.get(0).y) {
                     if (transformComponent.position.x >= platform.get(0).x && transformComponent.position.x <= platform.get(platform.size() - 1).x) {
-                        Gdx.app.log("", "Platform created.");
+//                        Gdx.app.log("", "Platform created.");
                         currentPlatform = platform;
                     }
                 }
@@ -102,7 +142,7 @@ public class CollisionSystem extends IteratingSystem {
         if (currentPlatform != null) {
             if (transformComponent.position.x < currentPlatform.get(0).x || transformComponent.position.x > currentPlatform.get(currentPlatform.size() - 1).x) {
                 currentPlatform = null;
-                Gdx.app.log("", "Platform destroyed.");
+//                Gdx.app.log("", "Platform destroyed.");
                 if (state != 1) {
                     state = 2;
                     movementComponent.acceleration.y = -1500f;
@@ -117,10 +157,7 @@ public class CollisionSystem extends IteratingSystem {
                 movementComponent.acceleration.y = 0;
                 movementComponent.velocity.y = 0;
                 transformComponent.position.y = currentPlatform.get(0).y;
-        }
-
-
-
+            }
 
 
 //                    if (state != 1) {
