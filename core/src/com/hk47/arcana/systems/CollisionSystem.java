@@ -86,14 +86,6 @@ public class CollisionSystem extends IteratingSystem {
             currentPlatform = null;
         }
 
-        // Debug reset, DELETE ME! :)
-        if (Gdx.input.isKeyJustPressed(Input.Keys.R)) {
-            transformComponent.position.x = 320;
-            transformComponent.position.y = 400;
-            movementComponent.velocity.y = 0;
-            movementComponent.acceleration.y = -1500f;
-        }
-
         if (currentPlatform == null) {
             int j = 0;
             for (ArrayList<Vector2> platform : platforms) {

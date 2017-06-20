@@ -51,6 +51,14 @@ public class PlayerInputSystem extends IteratingSystem {
             }
         }
 
+        // Debug reset, DELETE ME! :)
+        if (Gdx.input.isKeyJustPressed(Input.Keys.R)) {
+            transformComponent.position.x = 320;
+            transformComponent.position.y = 400;
+            movementComponent.velocity.y = 0;
+            movementComponent.acceleration.y = -1500f;
+        }
+
         // Touch controls to be implemented later.
 //        if (Gdx.input.justTouched()) {
 //            if (movementComponent.velocity.y == 0) {
