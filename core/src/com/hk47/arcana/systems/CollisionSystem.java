@@ -93,7 +93,7 @@ public class CollisionSystem extends IteratingSystem {
 
         float x = transformComponent.position.x;
         float y = transformComponent.position.y;
-        int highestPlatform = -1;
+        int highestPlatform = 0;
         for (int i = 0; i < platforms.size(); i++) {
             ArrayList<Vector2> platform = platforms.get(i);
             // Find all of the platforms the player is standing over
@@ -102,27 +102,39 @@ public class CollisionSystem extends IteratingSystem {
                 // Now if the player is over a platform, find the highest platform that the player is over
 
                 if (y >= platform.get(0).y) {
-                    //Gdx.app.log("Player y over ", "platform: " + i);
-                    if (i > highestPlatform) {
+                    Gdx.app.log("Player y over ", "platform: " + i);
+                    if (platform.get(0).y > platforms.get(highestPlatform).get(0).y) {
                         highestPlatform = i;
                     }
                 }
 
             }
-            Gdx.app.log("Player y over ", "platform: " + highestPlatform);
-            if (highestPlatform != -1) {
-                currentPlatform = platforms.get(highestPlatform);
-            }
 
 
-//                Gdx.app.log("", j++ + ": platY: " + platform.get(0).y + " playerY: " + transformComponent.position.y);
-//                if (transformComponent.position.y >= platform.get(0).y) {
-//                    if (transformComponent.position.x >= platform.get(0).x && transformComponent.position.x <= platform.get(platform.size() - 1).x) {
-////                        Gdx.app.log("", "Platform created.");
-//                        currentPlatform = platform;
-//                    }
-//                }
+
+                if (transformComponent.position.y >= platform.get(0).y) {
+                    if (transformComponent.position.x >= platform.get(0).x && transformComponent.position.x <= platform.get(platform.size() - 1).x) {
+//                        Gdx.app.log("", "Platform created.");
+                        currentPlatform = platform;
+                    }
+                }
         }
+
+//        Gdx.app.log("Player y over ", "platform: " + highestPlatform);
+//        if (highestPlatform != -1) {
+//            currentPlatform = platforms.get(highestPlatform);
+//        }
+
+        if (currentPlatform != null) {
+            if (y < currentPlatform.get(0).y && state != 0) {
+                // Player landed on a platform
+                movementComponent.acceleration.y = 0;
+                movementComponent.velocity.y = 0;
+                transformComponent.position.y = currentPlatform.get(0).y;
+                state = 0;
+            }
+        }
+
         //}
 
         // Working collision, but problems with landing on higher platforms.
@@ -166,43 +178,8 @@ public class CollisionSystem extends IteratingSystem {
 //                        movementComponent.acceleration.y = -1500f;
 //
 //                    }
-
-
         }
 
     }
+
 }
-//                    if (y < currentPlatform.get(0).y) {
-//
-//                        // Player landed on a platform
-//                        state = 0;
-//                        movementComponent.acceleration.y = 0;
-//                        movementComponent.velocity.y = 0;
-//                        transformComponent.position.y = platform.get(0).y;
-//                    }
-//                } else {
-//                    if (state != 1) {
-//                        state = 2;
-//                    }
-////                    if (state != 1) {
-////                        state = 2;
-////                        // Player is no longer on platform and is not jumping, so apply gravity
-////                        movementComponent.acceleration.y = -1500f;
-////                    }
-//                }
-//            }
-//            if (state == 2) {
-//                // Player is no longer on platform and is not jumping, so apply gravity
-////                        movementComponent.acceleration.y = -1500f;
-//            }
-//
-//
-//        }
-//
-////        if (transformComponent.position.y < 64) {
-////            movementComponent.acceleration.y = 0;
-////            movementComponent.velocity.y = 0;
-////            transformComponent.position.y = 64;
-////        }
-//    }
-//}
