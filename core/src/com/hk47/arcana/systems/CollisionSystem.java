@@ -111,7 +111,7 @@ public class CollisionSystem extends IteratingSystem {
             }
 
 
-
+            if (currentPlatform == null || currentPlatform.get(0).y > platforms.get(i).get(0).y)
                 if (transformComponent.position.y >= platform.get(0).y) {
                     if (transformComponent.position.x >= platform.get(0).x && transformComponent.position.x <= platform.get(platform.size() - 1).x) {
 //                        Gdx.app.log("", "Platform created.");
@@ -139,16 +139,16 @@ public class CollisionSystem extends IteratingSystem {
 
         // Working collision, but problems with landing on higher platforms.
         if (currentPlatform == null) {
-            int j = 0;
-            for (ArrayList<Vector2> platform : platforms) {
-//                Gdx.app.log("", j++ + ": platY: " + platform.get(0).y + " playerY: " + transformComponent.position.y);
-                if (transformComponent.position.y >= platform.get(0).y) {
-                    if (transformComponent.position.x >= platform.get(0).x && transformComponent.position.x <= platform.get(platform.size() - 1).x) {
-//                        Gdx.app.log("", "Platform created.");
-                        currentPlatform = platform;
-                    }
-                }
-            }
+//            int j = 0;
+//            for (ArrayList<Vector2> platform : platforms) {
+////                Gdx.app.log("", j++ + ": platY: " + platform.get(0).y + " playerY: " + transformComponent.position.y);
+//                if (transformComponent.position.y >= platform.get(0).y) {
+//                    if (transformComponent.position.x >= platform.get(0).x && transformComponent.position.x <= platform.get(platform.size() - 1).x) {
+////                        Gdx.app.log("", "Platform created.");
+//                        currentPlatform = platform;
+//                    }
+//                }
+//            }
         }
 
         if (currentPlatform != null) {
